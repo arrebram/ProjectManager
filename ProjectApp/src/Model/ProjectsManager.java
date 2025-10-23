@@ -131,4 +131,17 @@ public class ProjectsManager {
     public List<Project> getProjects() {
         return new ArrayList<>(projects);
     }
+
+    /**
+     * Returns a copy on the various states of the registered projects.
+     *
+     * @return a new {@link List} containing all states.
+     */
+    public List<Project> getState(){
+        List<Project> stateList = new ArrayList<>();
+        for(Project p : projects){
+            stateList = p.getState();
+        }
+        return stateList;
+    }
 }
