@@ -16,7 +16,7 @@ class CurrentProjectUI {
     // package ui - intended for MainUI.
     CurrentProjectUI(Scanner scan) {
         this.scan = scan;
-        this.currentProject = null; // TODO: Ugly!
+        this.currentProject = null;
     }
 
     void setCurrentProject(Project project) {
@@ -72,7 +72,7 @@ class CurrentProjectUI {
     }
 
     private void viewTasks(ITaskMatcher matcher) {
-        System.out.println(currentProject.toString());
+        System.out.println(currentProject.getTitle());
         List<Task> tasks = currentProject.findTasks(matcher);
         printTasks(tasks);
     }
@@ -92,7 +92,7 @@ class CurrentProjectUI {
         scan.nextLine(); //remove "new line" from scanner buffer
         Task task = currentProject.getTaskById(id);
         if (task != null) {
-            System.out.println(task);
+            System.out.println(task.getDescription());
             System.out.print("New state (T)odo (D)one? ");
             char stateChar = InputUtils.scanAndReturnFirstChar(scan);
             if (stateChar == 'T') {
@@ -146,7 +146,7 @@ class CurrentProjectUI {
             System.out.println("No tasks added");
         } else {
             for (Task task : tasks) {
-                System.out.println(task.toString());
+                System.out.println(task.getDescription() + ": " + task.getPrio() + ",  last updated: " + task.getLastUpdated());
             }
         }
     }
