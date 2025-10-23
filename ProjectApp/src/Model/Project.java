@@ -4,6 +4,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a project that contains multiple {@link Task} objects.
@@ -218,6 +219,10 @@ public class Project implements Comparable<Project>, Serializable {
             }
         }
         return result;
+    }
+
+    public List<Task> getTasks(){
+        return new ArrayList<>(tasks);
     }
     /**
      * Finds all tasks in this project that match a given condition.

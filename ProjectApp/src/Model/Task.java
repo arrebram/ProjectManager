@@ -167,4 +167,15 @@ public class Task implements Serializable, Comparable<Task> {
         }
         return result;
     }
+
+    @Override
+    public String toString() {
+        return
+                "description='" + description + '\'' +
+                ", id=" + id +
+                ", takenBy='" + takenBy + '\'' +
+                ", lastUpdated=" + lastUpdated +
+                ", prio=" + prio +
+                '}';
+    }
 }

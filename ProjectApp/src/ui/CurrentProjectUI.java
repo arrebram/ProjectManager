@@ -1,6 +1,7 @@
 package ui;
 import Model.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -53,7 +54,7 @@ class CurrentProjectUI {
                     updateTask();
                     break;
                 case 'V':
-                    printTasks(currentProject<);
+                    viewAllTasks();
                     break;
                 case 'R':
                     System.out.println("Task id? ");
@@ -122,8 +123,11 @@ class CurrentProjectUI {
         System.out.println("----------");
     }
 
-    private void viewAllTasks(Project project){
-
+    private void viewAllTasks(){
+        List<Task> tasks;
+        for(Task task : currentProject.getTasks()){
+            System.out.println(task);
+        }
     }
 
     private void removeTask(Task task){
