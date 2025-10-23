@@ -44,7 +44,7 @@ class CurrentProjectUI {
                     viewTasks(new NotDoneMatcher());
                     break;
                 case 'H':
-                    viewTasks(new PrioMatcher(Prio.High));
+                    viewTasks(new PrioMatcher(TaskPrio.HIGH));
                     break;
                 case 'A':
                     addTask();
@@ -72,7 +72,7 @@ class CurrentProjectUI {
         String descr = scan.nextLine();
         System.out.print("Priority (L)ow, (M)edium, (H)igh? ");
         char prioChar = InputUtils.scanAndReturnFirstChar(scan);
-        Prio prio = prioChar == 'H' ? Prio.High : prioChar == 'L' ? Prio.Low : Prio.Medium;
+        TaskPrio prio = prioChar == 'H' ? TaskPrio.HIGH : prioChar == 'L' ? TaskPrio.LOW : TaskPrio.MEDIUM;
         currentProject.addTask(descr, prio);
     }
 

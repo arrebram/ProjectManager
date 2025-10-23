@@ -1,5 +1,6 @@
 package ui;
 
+import Model.Project;
 import Model.ProjectsManager;
 
 import java.util.List;

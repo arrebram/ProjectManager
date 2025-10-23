@@ -9,6 +9,6 @@ public class TakenByMatcher implements ITaskMatcher{
 
     @Override
     public boolean match(Task task) {
-        return task.getTakenBy.equals(takenBy);
+        return task.getTakenBy().equals(takenBy);
     }
 }

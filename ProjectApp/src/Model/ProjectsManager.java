@@ -5,24 +5,48 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Manages a collection of {@link Project} objects.
+ * <p>
+ * This class is responsible for adding, removing, and searching projects.
+ * It also checks that project titles are unique and can retrieve the highest project ID.
+ * </p>
+ */
 public class ProjectsManager {
     private int nextProjectId;
     private List<Project> projects;
 
+    /**
+     * Constructs a new {@code ProjectsManager} with the specified next project ID.
+     *
+     * @param nextProjectId the ID number to assign to the next created project
+     */
     public ProjectsManager(int nextProjectId) {
         this.nextProjectId = nextProjectId;
         this.projects = new ArrayList<>();
+        nextProjectId = 0;
     }
 
+    /**
+     * Replaces the current list of projects with a new one.
+     *
+     * @param incomingProjects the list of projects to set
+     */
     public void setProjects(List<Project> incomingProjects) {
         projects.clear();
         this.projects = new ArrayList<>(incomingProjects);
     }
 
+    /**
+     * Checks if a given title is unique among existing projects.
+     *
+     * @param title the title to check
+     * @return {@code true} if the title is unique, otherwise {@code false}
+     */
     public boolean isTitleUnique(String title){
         int index = 0;
         for(Project p : projects){
-            if(p.getTitle == title){
+            if(p.getTitle() == title){
                 index = 1;
                 break;
             }
@@ -33,33 +57,64 @@ public class ProjectsManager {
         return true;
     }
 
+    /**
+     * Adds a new project with the given title and description.
+     *
+     * @param title the title of the new project
+     * @param descr the description of the new project
+     * @return the newly created {@link Project} object
+     * @throws TitleNotUniqueException if the title already exists
+     */
     public Project addProject(String title, String descr) throws TitleNotUniqueException{
-        Project p = new Project(title, descr);
+        Project p = new Project(title, descr, nextProjectId);
         if(!isTitleUnique(title)){
             throw new TitleNotUniqueException("Titel är ej unik");
         }
         projects.add(p);
+        nextProjectId++;
         return p;
     }
 
+    /**
+     * Removes a specific project from the list.
+     *
+     * @param project the project to remove
+     */
     public void removeProject(Project project){
         projects.remove(project);
     }
 
+    /**
+     * Retrieves a project by its ID (index in the list).
+     *
+     * @param id the index of the project in the list
+     * @return the {@link Project} at the given index
+     */
     public Project getProjectById(int id){
         return projects.get(id);
     }
 
+    /**
+     * Finds all projects with a title that matches the given string.
+     *
+     * @param titleStr the title to search for
+     * @return a list of matching {@link Project} objects
+     */
     public List<Project> findProjects(String titleStr) {
         List<Project> found = new ArrayList<>();
         for(Project p : projects){
-            if(p.getTitle == titleStr){
+            if(p.getTitle() == titleStr){
                 found.add(p);
             }
         }
         return found;
     }
 
+    /**
+     * Finds the highest project ID among all stored projects.
+     *
+     * @return the highest project ID found
+     */
     public int getHighestId() {
         int highest = 0;
         for (Project p : projects) {
@@ -70,7 +125,25 @@ public class ProjectsManager {
         return highest;
     }
 
+    /**
+     * Returns a copy of the list of projects.
+     *
+     * @return a new {@link List} containing all projects
+     */
     public List<Project> getProjects() {
         return new ArrayList<>(projects);
+    }
+
+    /**
+     * Returns a copy on the various states of the registered projects.
+     *
+     * @return a new {@link List} containing all states.
+     */
+    public List<Project> getState(){
+        List<Project> stateList = new ArrayList<>();
+        for(Project p : projects){
+            //stateList = p.getProjectState();
+        }
+        return stateList;
     }
 }

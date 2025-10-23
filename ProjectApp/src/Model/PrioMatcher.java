@@ -10,6 +10,6 @@ public class PrioMatcher implements ITaskMatcher {
 
     @Override
     public boolean match(Task task) {
-        return task.GetPrio.equals(prio);
+        return task.getPrio().equals(prio);
     }
 }
