@@ -219,4 +219,15 @@ public class Project implements Comparable<Project>, Serializable {
         }
         return result;
     }
+    /**
+     * Finds all tasks in this project that match a given condition.
+     * @return the different members of the task class
+     */
+    @Override
+    public String toString() {
+        return "created=" + created +
+            ", title='" + title +
+            ", id=" + id +
+            ", description='" + description;
+    }
 }
