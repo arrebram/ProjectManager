@@ -15,7 +15,7 @@ public class ProjectApp {
     public void run() throws Exception { // we do not catch all exceptions
 
         File projectsFile = new File(FILE_NAME);
-        ProjectsManager projectsManager = new ProjectsManager(1);
+        ProjectsManager projectsManager = new ProjectsManager();
         boolean couldReadFile = false;
 
         try {

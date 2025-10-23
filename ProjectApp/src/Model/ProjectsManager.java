@@ -1,9 +1,10 @@
 package Model;
 import Model.Project;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Manages a collection of {@link Project} objects.
@@ -16,15 +17,14 @@ public class ProjectsManager {
     private int nextProjectId;
     private List<Project> projects;
 
+
     /**
      * Constructs a new {@code ProjectsManager} with the specified next project ID.
      *
-     * @param nextProjectId the ID number to assign to the next created project
      */
-    public ProjectsManager(int nextProjectId) {
-        this.nextProjectId = nextProjectId;
+    public ProjectsManager(){
+        this.nextProjectId = 0;
         this.projects = new ArrayList<>();
-        nextProjectId = 0;
     }
 
     /**
@@ -46,7 +46,7 @@ public class ProjectsManager {
     public boolean isTitleUnique(String title){
         int index = 0;
         for(Project p : projects){
-            if(p.getTitle() == title){
+            if(p.getTitle().equals(title)){
                 index = 1;
                 break;
             }
@@ -103,7 +103,7 @@ public class ProjectsManager {
     public List<Project> findProjects(String titleStr) {
         List<Project> found = new ArrayList<>();
         for(Project p : projects){
-            if(p.getTitle() == titleStr){
+            if(Objects.equals(p.getTitle(), titleStr)){
                 found.add(p);
             }
         }

@@ -1,30 +1,41 @@
 package io;
 
 import Model.Project;
-
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectsFileIO {
+
+    private ProjectsFileIO() {} //
+
     public static void serializeToFile(File file, List<Project> projects) throws IOException {
-        if(projects == null){
-            throw new IOException("Listan är tom");
-        }
-        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
-        out.writeObject(projects);
-        out.close();
-    }
-
-    public static List<Project> deSerializeFromFile(File file) throws IOException, ClassNotFoundException{
-        if(!file.exists()){
-            throw new FileNotFoundException("Filen finns inte");
+        if (projects == null) {
+            projects = new ArrayList<>();
         }
 
-        ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
-        List<Project> projects = (List<Project>) in.readObject();
-        in.close();
-        return projects;
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
+            out.writeObject(projects);
+        }
     }
 
-    ProjectsFileIO(){};
+    @SuppressWarnings("unchecked")
+    public static List<Project> deSerializeFromFile(File file)
+            throws IOException, ClassNotFoundException {
+
+        // om filen inte finns, returnera tom lista istället för att kasta fel
+        if (!file.exists() || file.length() == 0) {
+            return new ArrayList<>();
+        }
+
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+            Object obj = in.readObject();
+
+            if (obj instanceof List<?>) {
+                return (List<Project>) obj;
+            } else {
+                throw new IOException("Filen innehåller inte en giltig projektlista.");
+            }
+        }
+    }
 }

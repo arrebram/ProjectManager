@@ -40,6 +40,12 @@ public class MainUI {
                 case 'M':
                     manageProject();
                     break;
+                case 'R':
+                    removeProject();
+                    break;
+                case 'L':
+                    listOfProjects();
+                    break;
                 case 'X':
                     break;
                 default:
@@ -47,7 +53,6 @@ public class MainUI {
             }
 
         } while (choice != 'X');
-        System.out.println("Bye bye! This was an ugly ui - I hope I'll learn about JavaFX and gui:s");
     }
 
     private void findProjects() {
@@ -70,7 +75,7 @@ public class MainUI {
             System.out.print("Description: ");
             String description = scan.nextLine();
             Project newProject = manager.addProject(title, description);
-            System.out.println("Project created: " + newProject);
+            System.out.println("Project created: " + title);
         } catch (IllegalArgumentException e) {
             System.out.println("A project with that title already exists.");
         }
@@ -81,11 +86,36 @@ public class MainUI {
         int id = scan.nextInt();
         scan.nextLine(); //remove "new line" from scanner buffer
         Project currentProject = manager.getProjectById(id);
-        if (currentProject != null) { // TODO: This is ugly!
-            System.out.println(currentProject);
+        if (currentProject != null) {
+            System.out.println(currentProject.getTitle());
             currentProjectUI.setCurrentProject(currentProject);
         } else {
             System.out.println("Project not found");
+        }
+    }
+
+    private void removeProject(){
+        System.out.println("Project id? ");
+        int id = scan.nextInt();
+        scan.nextLine();
+        Project currentProject = manager.getProjectById(id);
+        if(currentProject != null){
+            System.out.println("Project removed: " + currentProject.getTitle());
+            manager.removeProject(currentProject);
+        }
+        else {
+            System.out.println("Project not found");
+        }
+    }
+
+    private void listOfProjects(){
+        if(!manager.getProjects().isEmpty()){
+            for(Project p : manager.getProjects()){
+                System.out.println(p.getTitle() + ": " + p.getDescription());
+            }
+        }
+        else {
+            System.out.println("No projects created.");
         }
     }
 
@@ -94,6 +124,8 @@ public class MainUI {
         System.out.println("F - find project");
         System.out.println("A - add project");
         System.out.println("M - manage project");
+        System.out.println("R - Remove project");
+        System.out.println("L - List of projects");
         System.out.println("X - exit");
         System.out.println("----------");
     }
