@@ -53,7 +53,7 @@ class CurrentProjectUI {
                     updateTask();
                     break;
                 case 'V':
-                    viewAllTasks(currentProject);
+                    printTasks(currentProject<);
                     break;
                 case 'R':
                     System.out.println("Task id? ");
@@ -123,8 +123,7 @@ class CurrentProjectUI {
     }
 
     private void viewAllTasks(Project project){
-        List<Task> tasks = currentProject.getTasks();
-        printTasks(tasks);
+
     }
 
     private void removeTask(Task task){
