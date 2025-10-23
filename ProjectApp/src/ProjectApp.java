@@ -1,11 +1,13 @@
-
 import Model.Project;
 import Model.ProjectsManager;
 import io.ProjectsFileIO;
+
+
 import ui.MainUI;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectApp {
@@ -15,14 +17,16 @@ public class ProjectApp {
     public void run() throws Exception { // we do not catch all exceptions
 
         File projectsFile = new File(FILE_NAME);
-        ProjectsManager projectsManager = new ProjectsManager(1);
+        ProjectsManager projectsManager = new ProjectsManager();
         boolean couldReadFile = false;
 
         try {
 
             if (projectsFile.exists()) {
                 List<Project> projects = ProjectsFileIO.deSerializeFromFile(projectsFile);
-                projectsManager.setProjects(projects);
+                ArrayList<Project> myProjects = new ArrayList<>(projects);
+
+                projectsManager.setProjects(myProjects);
                 couldReadFile = true;
             }
 

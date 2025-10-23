@@ -52,6 +52,16 @@ class CurrentProjectUI {
                 case 'U':
                     updateTask();
                     break;
+                case 'V':
+                    viewAllTasks(currentProject);
+                    break;
+                case 'R':
+                    System.out.println("Task id? ");
+                    int id = scan.nextInt();
+                    scan.nextLine();
+                    Task task = currentProject.getTaskById(id);
+                    removeTask(task);
+                    break;
                 case 'X':
                     break;
                 default:
@@ -106,8 +116,29 @@ class CurrentProjectUI {
         System.out.println("H - list high priority tasks");
         System.out.println("A - add task");
         System.out.println("U - update task");
+        System.out.println("V - view all tasks");
+        System.out.println("R - remove task");
         System.out.println("X - exit project menu");
         System.out.println("----------");
+    }
+
+    private void viewAllTasks(Project project){
+        List<Task> tasks = currentProject.getTasks();
+        printTasks(tasks);
+    }
+
+    private void removeTask(Task task){
+        if(task != null){
+            boolean removed = currentProject.removeTask(task);
+            if(removed){
+
+                System.out.println("Task removed");
+            } else {
+                System.out.println("Task not removed!");
+            }
+        } else {
+            System.out.println("Task id not found");
+        }
     }
 
     private void printTasks(List<Task> tasks) {

@@ -40,6 +40,12 @@ public class MainUI {
                 case 'M':
                     manageProject();
                     break;
+                case 'D':
+                    removeProject();
+                    break;
+                case 'L':
+                    listAllProjects();
+                    break;
                 case 'X':
                     break;
                 default:
@@ -89,12 +95,38 @@ public class MainUI {
         }
     }
 
+    private void removeProject() {
+        System.out.print("Project id? ");
+        int id = scan.nextInt();
+        scan.nextLine(); // ta bort newline
+        Project project = manager.getProjectById(id);
+
+        if (project == null) {
+            System.out.println("No project found with id " + id);
+            return;
+        }
+
+    }
+
+    private void listAllProjects(){
+        if(manager.getProjects().isEmpty()){
+            System.out.println("No projects at the moment");
+            return;
+        }
+        for (int i = 0; i < manager.getProjects().size(); i++) {
+            System.out.println(manager.getProjects().get(i).toString());
+        }
+    }
+
     private void printMainMenu() {
         System.out.println("---Main menu---");
         System.out.println("F - find project");
         System.out.println("A - add project");
         System.out.println("M - manage project");
+        System.out.println("R - remove project");
+        System.out.println("L - list all projects");
         System.out.println("X - exit");
         System.out.println("----------");
     }
+
 }

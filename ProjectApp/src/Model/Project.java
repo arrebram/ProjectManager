@@ -1,10 +1,11 @@
 package Model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Project implements Comparable<Project> {
+public class Project implements Serializable, Comparable<Project> {
     private final String title;
     private ProjectState state;
     private final int id;
@@ -110,6 +111,10 @@ public class Project implements Comparable<Project> {
         return allDone ? ProjectState.COMPLETED : ProjectState.ONGOING;
     }
 
+    public ArrayList<Task> getTasks() {
+        ArrayList<Task> copy = new ArrayList<>(tasks);
+        return copy;
+    }
 
     public ArrayList<Task> findTasks(ITaskMatcher matcher){
         ArrayList<Task> result = new ArrayList<Task>();
@@ -119,5 +124,18 @@ public class Project implements Comparable<Project> {
             }
         }
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "title='" + title + ", \n" +
+                ", state=" + state + ", \n" +
+                ", id=" + id + ", \n" +
+                ", description='" + description + ", \n" +
+                ", created=" + created + ", \n" +
+                ", nextTaskId=" + nextTaskId + ", \n" +
+                ", tasks=" + tasks + ", \n" +
+                '}';
     }
 }

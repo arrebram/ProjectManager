@@ -16,14 +16,8 @@ public class ProjectsManager {
     private int nextProjectId;
     private List<Project> projects;
 
-    /**
-     * Constructs a new {@code ProjectsManager} with the specified next project ID.
-     *
-     * @param nextProjectId the ID number to assign to the next created project
-     */
-    public ProjectsManager(int nextProjectId) {
-        this.nextProjectId = nextProjectId;
-        this.projects = new ArrayList<>();
+    public ProjectsManager(){
+        projects = new ArrayList<>();
         nextProjectId = 0;
     }
 
